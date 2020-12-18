@@ -130,6 +130,7 @@
     </div>
     <div id="innerbk">
         <div id="inner">
+            <a id="previousButton" href="#" class="button" onclick="previousState();">Back</a>
             <a id="nextButton" href="#" class="button" onclick="nextState();">Next</a>
         </div>
     </div>
@@ -376,10 +377,11 @@
             }
             if(state === 3) {
                 solution();
+                
             }
             if(state === 4) {
                 //redirect to 350.org/science/
-                
+                window.location.href = "http://www.350.org/science/";
             }
             
         }
