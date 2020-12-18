@@ -37,10 +37,13 @@
 
         #innerbk {
             background-color: #3E3E40;
-            height: 20%;
+            height: 300px;
             z-index: 95;
-            width: 100%;
+            width: 200px;
             visibility: hidden;
+            position: fixed;
+            left: 50px;
+            top: 20%;
         }
 
         .button {
@@ -127,11 +130,7 @@
     </div>
     <div id="innerbk">
         <div id="inner">
-            <a href="#" class="button" onclick="causes();">Causes</a>
-            <a href="#" class="button" onclick="arctic();">Arctic Melting</a>
-            <a href="#" class="button" onclick="seasons();">Shifting Seasons</a>
-            <a href="#" class="button" onclick="solution();">Solutions</a>
-
+            <a id="nextButton" href="#" class="button" onclick="nextState();">Next</a>
         </div>
     </div>
 
@@ -141,19 +140,21 @@
     <script src="js/tween.min.js"></script>
 
     <script>
-        var scene, camera, renderer, raycaster;
+        var scene, camera, renderer, raycaster, state = 0;
         var mouse = new THREE.Vector2(),
             INTERSECTED;
         var titlePage = document.getElementById("titlePage");
         var background = document.getElementById("background");
+        
+        
 
         document.getElementById("beginBtn").addEventListener("click", exploreClick);
 
         function exploreClick() {
             //titlePage.style.opacity = "0";
             setTimeout(function() {
-                titlePage.style.visibility = "hidden";
-                background.style.visibility = "hidden";
+                titlePage.remove();
+                background.remove();
                 //background.style.opacity = "0";
                 inner.style.visibility = "visible";
                 innerbk.style.visibility = "visible";
@@ -227,6 +228,8 @@
 
             //render the scene
             //render();
+            
+            updateState(0);
         }
 
         function onDocumentMouseMove(event) {
@@ -337,6 +340,51 @@
             pos1.start();
             rot1.start();
         }
+        
+        
+        
+        
+        
+        
+        
+        function nextState() {
+            updateState(1);
+        }
+        
+        function previousState() {
+            updateState(-1);
+        }
+        
+        function updateState(direction = 1) {
+            //move the state to either the next or the previous
+            //number based on the calling function
+            if (direction === 1) {
+                state++;
+            }
+            if (direction === -1 && state !== 0) {
+                state--;
+            }
+            
+            if(state === 0) {
+                causes();
+            }
+            if(state === 1) {
+                arctic();
+            }
+            if(state === 2) {
+                seasons();
+            }
+            if(state === 3) {
+                solution();
+            }
+            if(state === 4) {
+                //redirect to 350.org/science/
+                
+            }
+            
+        }
+        
+        
 
         //call the init function to run the code
         init();
